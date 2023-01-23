@@ -1,0 +1,1571 @@
+<html lang="en">
+<head>
+  <title>FoodSpy</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="font-awesome-4.5.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <link rel="icon" type="image/png" href="favicon.ico"> <!--Apparently, we need to go online for ie to work on this -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style>
+
+ /*login*/
+      #login-trigger:hover, #login-trigger:active 
+      {
+        background-color:transparent;
+        font-size: 19px; outline: none;
+      }
+          #login-content ,#signup-content{
+            list-style: none;
+            position: relative; 
+            opacity: none;
+          }
+          .login #login-content, #signup-content {
+            display: none;
+            position: absolute;
+            z-index: 999;   
+            background: #DBCAB4;
+            width: 280px;  
+            top:112%;
+            right: 2px;
+          }
+          #myLogin .modal-content, #mySignup .modal-content  { 
+            opacity: 0.9;
+            background: #DBCAB4; 
+          }
+           .login #inputs input{
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: #f1f1f1;
+            padding: 6px 5px;
+            margin:5px;
+            margin-left: 12px;
+            width: 250px;
+            border: 0px;
+            border-bottom: 1px solid #ccc;
+            border-radius: 3px;
+          }
+          .modal-body #inputs input, .modalbody #inputs input{
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: #f1f1f1;
+            border-bottom: 1px solid #ccc;
+            border-radius: 3px;
+            outline: none;
+          }
+          .login #inputs input:focus {
+            border-color: #ccc;
+            outline: none;
+            box-shadow: 0 1px 1px #918677 inset;
+          }
+          .modal-body #inputs input:focus, .modalbody #inputs input:focus{
+            border-color: #ccc;
+            outline: none;
+            box-shadow: 0 1px 1px #918677 inset;
+          }
+
+           .login #actions #submit, .login #actions #signup, .login #actions #back  { 
+           box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);   
+            background-color: #cc2900;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;  
+            float: left;
+            border: 0px;
+            height: 30px;
+            padding: 0;
+            width: 118px;
+            cursor: pointer;
+            font: 14px Arial, Helvetica;
+            color: #fff;
+            margin: 10px;
+            margin-bottom: 0px;
+            opacity: 0.9;
+          }
+          .modal-body #actions #submit, .modalbody #actions #submit, .modal-body #actions #signup, .modalbody #actions #signup, .modal-body #actions #back, .modalbody #actions #back{
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);   
+            background-color: #cc2900;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px ;
+            font: 14px Arial, Helvetica;
+            color: #fff;
+            opacity: 0.8;
+          }
+           .login #actions #submit:active, .login #actions #signup:active, .login #actions #back:active, .modal-body #actions #submit:active, .modal-body #actions #signup:active, .modalbody #actions #back:active, .modalbody #actions #signup:active {
+            -webkit-transform: scale(0.9);
+            -moz-transform: scale(0.9);
+            -ms-transform: scale(0.9);
+            -o-transform: scale(0.9);
+            transform: scale(0.9);
+            
+            -webkit-transition: all 0s;
+            -moz-transition: all 0s;
+            -ms-transition: all 0s;
+            -o-transition: all 0s;
+            transition: all 0s;
+          }
+          .login #actions #submit:hover, .login #actions #submit:focus,  .login #actions #signup:hover,  .login #actions #signup:focus, .login #actions #back:hover, .login #actions #back:focus, .modal-body #actions #submit:hover, .modal-body #actions #submit:focus, .modal-body #actions #signup:hover, .modal-body #actions #signup:focus,.modalbody #actions #back:hover, .modalbody #actions #back:focus, .modalbody #actions #signup:hover, .modalbody #actions #signup:focus {    
+            background-color: #4d1e00;
+          } 
+          #myLogin .modal-header, #mySignup .modal-header{font: 14px Arial, Helvetica; color:#444; }
+          .login #labels label, .modal-body #labels label input {
+            font: 14px Arial, Helvetica;
+            float: left;
+            line-height: 30px;
+          }
+           .login #labels label input{
+            position: relative;
+            top: 2px;
+            right: 2px;
+          }
+           .login #labels{
+            color: #fff;
+          }
+           .login #labels #remember{
+            float: left;
+            margin-left: 10px;
+          }
+           .login #labels #forgot{
+            float: right;
+            margin-right: 10px;
+            
+          }
+          .login #labels #forgot a, .modal-body #labels a{
+            color:#444;
+          }
+          .login .hr , .login1 .hr{
+            -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+            -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+          }
+          /* login social*/
+          @import url(http://fonts.googleapis.com/css?family=Ubuntu|Courgette);
+          @font-face {
+            font-family: 'entypo';
+            font-style: normal;
+            font-weight: normal;
+            src: url('http://weloveiconfonts.com/api/fonts/entypo/entypo.eot');
+            src: url('http://weloveiconfonts.com/api/fonts/entypo/entypo.eot?#iefix') format('eot'), url('http://weloveiconfonts.com/api/fonts/entypo/entypo.woff') format('woff'), url('http://weloveiconfonts.com/api/fonts/entypo/entypo.ttf') format('truetype'), url('http://weloveiconfonts.com/api/fonts/entypo/entypo.svg#entypo') format('svg');
+          }
+
+          .entypo-twitter-circled:before {
+            content: "\f30a";
+          }
+          .entypo-facebook:before {
+            content: "\f30c";
+          }
+          .entypo-facebook-circled:before {
+            content: "\f30d";
+          }
+          .entypo-facebook-squared:before {
+            content: "\f30e";
+          }
+          .entypo-gplus:before {
+            content: "\f30f";
+          }
+          .entypo-gplus-circled:before {
+            content: "\f310";
+          }
+
+          div.loginpanel div.social {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            margin-bottom: 10px;
+          }
+          div.loginpanel div.social a {
+            display: inline-block;
+            -webkit-flex: 1;
+            -moz-flex: 1;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+          }
+          div.loginpanel div.social a:before {
+            display: inline-block;
+            padding: 0;
+            font-family: 'entypo', sans-serif;
+            font-size: 2em;
+            color: #444;
+            line-height: 50px;
+            text-align: center;
+            text-shadow: 0 1px rgba(255, 255, 255, 0.4);
+            -webkit-transition: all 0.2s ease-out;
+            -moz-transition: all 0.2s ease-out;
+            -ms-transition: all 0.2s ease-out;
+            -o-transition: all 0.2s ease-out;
+            transition: all 0.2s ease-out;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+          }
+          div.loginpanel div.social a:hover:before,
+          div.loginpanel div.social a:focus:before {
+            color: #FFF;
+            -webkit-transition: all 0.2s ease-out, box-shadow 0.3s ease-out 0.1s;
+            -moz-transition: all 0.2s ease-out, box-shadow 0.3s ease-out 0.1s;
+            -ms-transition: all 0.2s ease-out, box-shadow 0.3s ease-out 0.1s;
+            -o-transition: all 0.2s ease-out, box-shadow 0.3s ease-out 0.1s;
+            transition: all 0.2s ease-out, box-shadow 0.3s ease-out 0.1s;
+          }
+          div.loginpanel div.social a:active:before {
+            -webkit-transform: scale(0.9);
+            -moz-transform: scale(0.9);
+            -ms-transform: scale(0.9);
+            -o-transform: scale(0.9);
+            transform: scale(0.9);
+
+            -webkit-transition: all 0s;
+            -moz-transition: all 0s;
+            -ms-transition: all 0s;
+            -o-transition: all 0s;
+            transition: all 0s;
+          }
+          div.loginpanel div.social a.facebook:before {
+            content: "\f30c";
+          }
+          div.loginpanel div.social a.facebook:hover:before,
+          div.loginpanel div.social a.facebook:focus:before {
+            background-color: #3b5998;
+            -webkit-box-shadow: 0 0 0 4px rgba(59, 89, 152, 0.6);
+            -moz-box-shadow: 0 0 0 4px rgba(59, 89, 152, 0.6);
+            box-shadow: 0 0 0 4px rgba(59, 89, 152, 0.6);
+          }
+          div.loginpanel div.social a.facebook:active:before {
+            -webkit-box-shadow: 0 0 0 4px rgba(59, 89, 152, 0.6), 0 0 0 4px #333333, 0 1px 0 4px rgba(255, 255, 255, 0.6);
+            -moz-box-shadow: 0 0 0 4px rgba(59, 89, 152, 0.6), 0 0 0 4px #333333, 0 1px 0 4px rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 0 4px rgba(59, 89, 152, 0.6), 0 0 0 4px #333333, 0 1px 0 4px rgba(255, 255, 255, 0.6);
+          }
+          div.loginpanel div.social a.twitter:before {
+            content: "\f309";
+          }
+          div.loginpanel div.social a.twitter:hover:before,
+          div.loginpanel div.social a.twitter:focus:before {
+            text-shadow: 0 1px #1385cc;
+            background-color: #56b4ef;
+            -webkit-box-shadow: 0 0 0 4px rgba(86, 180, 239, 0.6);
+            -moz-box-shadow: 0 0 0 4px rgba(86, 180, 239, 0.6);
+            box-shadow: 0 0 0 4px rgba(39, 159, 235, 0.6);
+          }
+          div.loginpanel div.social a.twitter:active:before {
+            -webkit-box-shadow: 0 0 0 4px rgba(86, 180, 239, 0.6), 0 0 0 4px #333333, 0 1px 0 4px rgba(255, 255, 255, 0.6);
+            -moz-box-shadow: 0 0 0 4px rgba(86, 180, 239, 0.6), 0 0 0 4px #333333, 0 1px 0 4px rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 0 4px rgba(86, 180, 239, 0.6), 0 0 0 4px #333333, 0 1px 0 4px rgba(255, 255, 255, 0.6);
+          }
+          div.loginpanel div.social a.googleplus:before {
+            content: "\f30f";
+          }
+          div.loginpanel div.social a.googleplus:hover:before,
+          div.loginpanel div.social a.googleplus:focus:before {
+            text-shadow: 0 1px #96271a;
+            background-color: #dd4b39;
+            -webkit-box-shadow: 0 0 0 4px rgba(221, 75, 57, 0.6);
+            -moz-box-shadow: 0 0 0 4px rgba(221, 75, 57, 0.6);
+            box-shadow: 0 0 0 4px rgba(221, 75, 57, 0.6);
+          }
+          div.loginpanel div.social a.googleplus:active:before {
+            -webkit-box-shadow: 0 0 0 4px rgba(221, 75, 57, 0.6), 0 0 0 4px #333333, 0 1px 0 4px rgba(255, 255, 255, 0.6);
+            -moz-box-shadow: 0 0 0 4px rgba(221, 75, 57, 0.6), 0 0 0 4px #333333, 0 1px 0 4px rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 0 4px rgba(221, 75, 57, 0.6), 0 0 0 4px #333333, 0 1px 0 4px rgba(255, 255, 255, 0.6);
+          }
+
+      .input-group #search{
+        width:100%;
+        white-space: normal;
+        height: 50px;
+        border: 2px ;
+        font: 12pt Arial, Helvetica;
+        float: left;
+        background-color: #E5E5CF;opacity: 0.9;
+        color: #191919;
+      }
+      #orderbutton:hover{
+            -ms-transform: scale(1.15,1.15); /* IE 9 */
+            -webkit-transform: scale(1.15,1.15); /* Safari */
+            transform: scale(1.15,1.15); /* Standard syntax */
+      }
+      .input-group .btn{
+        height:50px;
+        font: 12pt Arial, Helvetica;
+        background-color: #E5E5CF;opacity:0.9;
+      }
+      .input-group .glyphicon-search{
+        transition: all .55s ease;
+        color:#191919;
+      }
+      .input-group input#search:focus, .input-group input#search:active{
+          outline:none; 
+      }
+       
+      .input-group:hover .glyphicon-search{
+         transform:scale(1.5);
+        }
+        .jumbotron #location{
+          width: 100%;
+          white-space: normal;
+          height:50px;
+          border: 2px;
+          background-color: #E5E5CF;
+          font: 12pt Arial, Helvetica;
+          color: #191919;
+          position: relative;
+          text-align: left;
+          opacity: 0.9;
+          overflow: auto;
+        }
+        .jumbotron #location:active, .jumbotron #location:focus{ outline: none;}
+
+   .jumbotron
+   {
+    margin-bottom: 0;
+   }
+
+   .navbar-nav > li > a
+   {
+    color:#737373;
+    font: bold 13pt Arial, Helvetica;}
+
+   .navbar-nav > li> a:hover{
+      background-color: transparent;
+      }
+      #LOGIN:hover
+      {
+        background-color:#7A3000;
+      }
+      .input-group input#search{
+        width:100%;
+        white-space: normal;
+        height: 50px;
+        border: 2px ;
+        font: 12pt Arial, Helvetica;
+        float: left;
+        background-color: #E5E5CF;
+        opacity:0.9;
+      }
+      #orderbutton:hover{
+            -ms-transform: scale(1.15,1.15); /* IE 9 */
+            -webkit-transform: scale(1.15,1.15); /* Safari */
+            transform: scale(1.15,1.15); /* Standard syntax */
+
+      }
+      .input-group .btn{
+        height:50px;
+        font: 12pt Arial, Helvetica;
+        background-color: #E5E5CF;opacity:0.9;
+      }
+      .input-group .glyphicon-search{
+        transition: all .55s ease;
+        color:#191919;
+      }
+      .input-group input#search:focus, .input-group input#search:active{
+          outline:none; 
+      }
+       
+      .input-group:hover .glyphicon-search{
+         transform:scale(1.5);
+        }
+         .dropdown {
+          width: 100%;
+          white-space: normal;
+          position: relative;
+          display: inline-block;
+      }
+        .dropdown .btn{
+          width: 100%;
+          white-space: normal;
+          height:50px;
+          background-color: #E5E5CF;
+          font: 12pt Arial, Helvetica;
+          color: #191919;
+          position: relative;
+          text-align: left;
+          opacity: 0.9;
+        }
+      .dropdown .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          margin: 0;
+          list-style: none; /** Remove list bullets */
+          width: 100%; /** Set the width to 100% of it's parent */
+          padding: 0;
+      }
+      .dropdown:hover .dropdown-menu {
+        display: block;
+
+      }
+        .dropdown .glyphicon-chevron-down{
+          float: right; 
+          margin-right: 2px;
+        }
+        .dropdown-menu{
+          width:100%;
+          white-space: normal;
+          position: relative;
+          background-color:#E5E5CF; 
+          border-radius: 0px;
+          font-weight: 10pt;
+          opacity: 0.9;
+
+
+        }
+        .dropdown-menu >li > a{
+        color:gray;
+        font: 12pt Arial, Helvetica;
+        }
+
+        .dropdown-menu li{
+          border-bottom: 2px solid;
+          border-color: #E6E6CF;
+        }
+        .dropdown-menu> li> a:hover {
+          color:  #404040;
+          background-color: transparent;
+
+
+        }
+        .playing .ball {
+          transition-property: margin-left;
+          transition-duration: 1.5s;
+          transition-timing-function: ease-out;
+          transition-delay: .2s;
+          margin-left: 30%;
+        }
+        .ball {
+          border-radius: 20%;
+          position: absolute;
+          top: 55%; 
+          height: 55%;
+        }
+        .categories{
+          display: none;
+        }
+        <!--Make sure that this becomes light brown on activity-->
+        .navbar-nav > li > a:hover,.navbar-nav > li > a:focus{
+          background-color:#7A3000;
+        }
+        .btn1{
+          display: none;
+        }
+  </style>
+  <script type="text/javascript">
+
+      $(window).load(function(){
+      $("body").addClass("playing");
+      });
+
+ $(document).ready(function(){
+  $('.categories').fadeIn(5000)
+ });
+ $(document).ready(function(){
+  $('.btn1').fadeIn(2000)
+ });
+  /*slide down login content*/
+    $(document).ready(function(){
+      $('#login-trigger').click(function(){
+      $(this).next('#login-content').slideToggle();
+      $(this).toggleClass('active');})
+    });
+     $(document).ready(function(){
+      $('#login-trigger').click(function(){
+      $('#signup-content').hide();
+      })
+    });
+    /*signup*/
+    $(document).ready(function(){
+      $("#signup").click(function(){
+          $("#login-content").hide();
+      });
+    });
+    $(document).ready(function(){
+      $("#signup").click(function(){
+          $("#signup-content").show();
+      });
+    });
+    $(document).ready(function(){
+      $("#back").click(function(){
+          $("#signup-content").hide();
+      });
+    });
+    $(document).ready(function(){
+      $("#back").click(function(){
+          $("#login-content").show();
+      });
+    });
+    /* modal signup*/
+    $(document).ready(function () {
+      $("#myLogin #signup").on('click', function() {
+          $('#myLogin').modal('hide');
+      });
+    });
+    $(document).ready(function () {
+      $("#myLogin #signup").on('click', function() {
+          $('#mySignup').modal('show');
+      });
+    });
+    $(document).ready(function () {
+      $("#mySignup #back").on('click', function() {
+          $('#mySignup').modal('hide');
+      });
+    });
+    $(document).ready(function () {
+      $("#mySignup #back").on('click', function() {
+          $('#myLogin').modal('show');
+      });
+    });
+    /*login fading*/
+    $(document).keyup(function(e) {
+        if (e.which == 27) {
+            $(".login #login-content, .login #signup-content").fadeOut(200); 
+        }
+    });
+  </script>
+<style>
+
+
+   .jumbotron
+   {
+    margin-bottom: 0;
+   }
+
+   .navbar-nav > li > a
+   {
+    color:#737373;
+    font: bold 13pt Arial, Helvetica;}
+
+   .navbar-nav > li> a:hover{
+      background-color: transparent;
+      }
+      #LOGIN:hover
+      {
+        background-color:#7A3000;
+      }
+      .input-group input#search{
+        width:100%;
+        white-space: normal;
+        height: 50px;
+        border: 2px ;
+        font: 12pt Arial, Helvetica;
+        float: left;
+        background-color: #E5E5CF;
+        opacity:0.9;
+      }
+      #orderbutton:hover{
+            -ms-transform: scale(1.15,1.15); /* IE 9 */
+            -webkit-transform: scale(1.15,1.15); /* Safari */
+            transform: scale(1.15,1.15); /* Standard syntax */
+
+      }
+      .input-group .btn{
+        height:50px;
+        font: 12pt Arial, Helvetica;
+        background-color: #E5E5CF;opacity:0.9;
+      }
+      .input-group .glyphicon-search{
+        transition: all .55s ease;
+        color:#191919;
+      }
+      .input-group input#search:focus, .input-group input#search:active{
+          outline:none; 
+      }
+       
+      .input-group:hover .glyphicon-search{
+         transform:scale(1.5);
+        }
+         .dropdown {
+          width: 100%;
+          white-space: normal;
+          position: relative;
+          display: inline-block;
+      }
+        .dropdown .btn{
+          width: 100%;
+          white-space: normal;
+          height:50px;
+          background-color: #E5E5CF;
+          font: 12pt Arial, Helvetica;
+          color: #191919;
+          position: relative;
+          text-align: left;
+          opacity: 0.9;
+        }
+      .dropdown .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          margin: 0;
+          list-style: none; /** Remove list bullets */
+          width: 100%; /** Set the width to 100% of it's parent */
+          padding: 0;
+      }
+      .dropdown:hover .dropdown-menu {
+        display: block;
+
+      }
+        .dropdown .glyphicon-chevron-down{
+          float: right; 
+          margin-right: 2px;
+        }
+        .dropdown-menu{
+          width:100%;
+          white-space: normal;
+          position: relative;
+          background-color:#E5E5CF; 
+          border-radius: 0px;
+          font-weight: 10pt;
+          opacity: 0.9;
+
+
+        }
+        .dropdown-menu >li > a{
+        color:gray;
+        font: 12pt Arial, Helvetica;
+        }
+
+        .dropdown-menu li{
+          border-bottom: 2px solid;
+          border-color: #E6E6CF;
+        }
+        .dropdown-menu> li> a:hover {
+          color:  #404040;
+          background-color: transparent;
+
+
+        }
+        .playing .ball {
+          transition-property: margin-left;
+          transition-duration: 1.5s;
+          transition-timing-function: ease-out;
+          transition-delay: .2s;
+          margin-left: 30%;
+        }
+        .ball {
+          border-radius: 20%;
+          position: absolute;
+          top: 55%; 
+          height: 55%;
+        }
+        .categories{
+          display: none;
+        }
+        <!--Make sure that this becomes light brown on activity-->
+        .navbar-nav > li > a:hover,.navbar-nav > li > a:focus{
+          background-color:#7A3000;
+        }
+        
+.bottom-well .row a{
+          color: #000000;
+          opacity: 0.85;
+         
+        }
+        .well
+        {
+          margin-bottom: 20px;
+        }
+        #MainHeading a{
+            color:#4d1e00;
+            padding: none;
+        }
+        #bug{
+          display:none;
+        }
+        .p{
+            line-height:1px;
+
+        }
+        #AreaLink a:hover{
+          border-bottom:1px dotted;
+          text-decoration: none;
+          color:  #262626;
+          font-weight: 300;
+        }
+        #AreaLink a{
+          color:#666666;
+          font-weight: 300;
+          text-decoration: none;
+          margin-left: -0.5%;
+        }
+        #Filter-Forms
+        {
+          float:left;
+          background-color:#e9e5e2;
+          margin: 7px;
+          border-radius: 6px;
+
+        }
+        #Listing
+        {
+          margin-top: 7px;
+          
+          position:relative;
+          border-radius: 6px;
+        }
+
+
+      /*stars rating*/
+      .rating{top:35%;margin-left:83.2%;}
+      .rating input {display: none;}
+      .rating-star{ float: right;}
+      .rating:hover .rating-star:hover,
+      .rating:hover .rating-star:hover ~ .rating-star,
+      .rating-input:checked ~ .rating-star {
+          content: url('images/star.png');
+          width:20px;
+      }
+      #Menu:hover{
+        color:#4d4d4d;
+        border-color: #4d4d4d;
+      }
+      #orderonline:hover{
+        color:#4d4d4d;
+        border-color: #4d4d4d;
+      }
+      #Menu{
+      background-color:transparent;
+      border-style:solid;
+      border-color: #808080;
+      border-width: 1.5px;
+      padding:5px;
+      border-radius: 5px;
+      color: #808080;
+      margin-top:5px;
+      margin-bottom:2px;
+      margin-left: -0.5%;
+    }
+    #Cost{
+      margin-top: -6px;
+      margin-left: -0.5%;
+    }
+    #orderonline{
+      background-color:transparent;
+      border-style:solid;
+      border-color: #808080;
+      border-width: 1.5px;
+      padding:5px;
+      border-radius: 5px;
+      color: #808080;
+      margin-top:-5px;
+      margin-bottom:2px;
+      
+    }
+    #Offers{
+      color: white;
+    }
+    #d_offers:hover{
+      -ms-transform: scale(1.15,1.15); /* IE 9 */
+      -webkit-transform: scale(1.15,1.15); /* Safari */
+      transform: scale(1.15,1.15); /* Standard syntax */
+      border-bottom:3px solid #f2f2f2;
+
+    }
+    #d_offers{
+      border-radius:6px;
+      background-color:#a14545;
+      color:white;
+      position:relative;
+      float:right;
+      padding:5px;
+      margin-top:10px;
+      font-size: 100%;
+    }
+    #Cuisine_tabs:hover
+    {
+      text-decoration: none;
+      margin-top:-2px;
+    }
+    #Cuisine_tabs{
+      color:white;
+      background-color:#4d1e00;
+      border-radius:6px;
+      padding:2px;
+      margin-right: 5px;
+    }
+    .close:hover, .close:active{
+  color: red;
+  outline: none;
+  }
+  .menu{ height: 120px; border-bottom: 1px solid #ccc;}
+  .menu .row {padding-bottom: 10px;}
+  .menu .row button{border: 0; background-color: #E25F0B; color: #E5E5CF; opacity: 0.85; font-size: 16px;}
+  .menu .row a:hover{text-decoration: none;}
+  .menu .row button:focus{outline: 0;}
+  .menu .row button:active, .order-tab .footer button:active{
+            -webkit-transform: scale(0.9);
+            -moz-transform: scale(0.9);
+            -ms-transform: scale(0.9);
+            -o-transform: scale(0.9);
+            transform: scale(0.9);
+            
+            -webkit-transition: all 0s;
+            -moz-transition: all 0s;
+            -ms-transition: all 0s;
+            -o-transition: all 0s;
+            transition: all 0s;}
+  #food-list{height: 465px; overflow-y:scroll; }
+  #food-list .row{background-color: #DBCAB4; padding: 10px; margin: 10px; opacity: 0.9;}
+  #food-list #cost, #food-list .counter {float: right;}
+  #counter{text-align: center; border:1.5px solid #ccc; border-radius: 20%; height: 24px; width: 24px; }
+  #food-list .inc, #food-list .dec{border-radius: 50%; border:0; height: 24px; width: 24px; text-align: center;}
+  #counter:focus, .inc:focus, .dec:focus, .order-tab .footer button:focus{outline: none;}
+  .order-tab{border:1px solid #ccc; margin: 10px; margin-top: 15%;}
+  .order-tab .body{height: 250px; overflow-y:scroll; overflow-x:hidden; margin: 5px;}
+  </style>
+  <script type="text/javascript">
+
+      $(window).load(function(){
+      $("body").addClass("playing");
+      });
+
+ $(document).ready(function(){
+  $('.categories').fadeIn(5000)
+ });
+ $(document).ready(function(){
+  $('.btn1').fadeIn(2000)
+ });
+ $(function() {
+    $(".inc").click(function() {
+        var text = $(this).next(":text");
+        text.val(parseInt(text.val(), 10) + 1);
+    });
+
+    $(".dec").click(function() {
+        var text = $(this).prev(":text");
+        text.val(parseInt(text.val(), 10) - 1);
+    });
+});
+  </script>
+</head>
+<!--navbar-->
+<body>
+  
+
+  <div class="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  
+<div class="modal" id="slide" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="margin-bottom:10px;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div> 
+          <div class="modal-body">
+            <div class="menu">
+              <div class="row">
+                <div class="col-xs-3"> <a href="#cuisines"><button class="btn-lg btn-block"> Cuisines </button> </a></div>
+                <div class="col-xs-3"> <a href="#"><button class="btn-lg btn-block"> Desserts </button> </a></div>
+                <div class="col-xs-3"> <a href="#"><button class="btn-lg btn-block"> Happy meals </button> </a></div>
+                <div class="col-xs-3"> <a href="#"><button class="btn-lg btn-block"> Drinks </button> </a></div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3"> <a href="#"><button class="btn-lg btn-block"> Appetizers </button> </a></div>
+                <div class="col-xs-3"> <a href="#"><button class="btn-lg btn-block"> Seafood </button> </a></div>
+                <div class="col-xs-3"> <a href="#"><button class="btn-lg btn-block"> Rice </button> </a></div>
+                <div class="col-xs-3"> <a href="#"><button class="btn-lg btn-block"> Main course </button> </a></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-8" id="food-list"> 
+                <div class="row"> 
+                  <label id="foodname">Tomato Soup (Veg)</label>
+                  <label id="cost"> Rs.56</label> <br>
+                  <label>(ingredients)</label>
+                  <div class="counter">
+                    <button class="inc btn-danger btn-md" field="quantity" style="font-size:15px; margin-right:5px;"> + </button>
+                    <input type="text" id="counter" value="1">
+                    <button class="dec btn-danger btn-md" field="quantity" style="font-size:16px; margin-left:5px;">  - </button>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <label id="foodname"><strong>Tomato Soup (Veg)</strong></label>
+                  <label id="cost"> Rs.56</label> <br>
+                  <label>(ingredients)</label>
+                  <div class="counter">
+                    <button class="inc btn-danger btn-md" field="quantity" style="font-size:15px; margin-right:5px;"> + </button>
+                    <input type="text" id="counter" value="1">
+                    <button class="dec btn-danger btn-md" field="quantity" style="font-size:16px; margin-left:5px;">  - </button>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <label id="foodname"><strong>Tomato Soup (Veg)</strong></label>
+                  <label id="cost"> Rs.56</label> <br>
+                  <label>(ingredients)</label>
+                  <div class="counter">
+                    <button class="inc btn-danger btn-md" field="quantity" style="font-size:15px; margin-right:5px;"> + </button>
+                    <input type="text" id="counter" value="1">
+                    <button class="dec btn-danger btn-md" field="quantity" style="font-size:16px; margin-left:5px;">  - </button>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <label id="foodname"><strong>Tomato Soup (Veg)</strong></label>
+                  <label id="cost"> Rs.56</label> <br>
+                  <label>(ingredients)</label>
+                  <div class="counter">
+                    <button class="inc btn-danger btn-md" field="quantity" style="font-size:15px; margin-right:5px;"> + </button>
+                    <input type="text" id="counter" value="1">
+                    <button class="dec btn-danger btn-md" field="quantity" style="font-size:16px; margin-left:5px;">  - </button>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <label id="foodname"><strong>Tomato Soup (Veg)</strong></label>
+                  <label id="cost"> Rs.56</label> <br>
+                  <label>(ingredients)</label>
+                  <div class="counter">
+                    <button class="inc btn-danger btn-md" field="quantity" style="font-size:15px; margin-right:5px;"> + </button>
+                    <input type="text" id="counter" value="1">
+                    <button class="dec btn-danger btn-md" field="quantity" style="font-size:16px; margin-left:5px;">  - </button>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <label id="cuisines"><strong>Tomato Soup (Veg)</strong></label>
+                  <label id="cost"> Rs.56</label> <br>
+                  <label>(ingredients)</label>
+                  <div class="counter">
+                    <button class="inc btn-danger btn-md" field="quantity" style="font-size:15px; margin-right:5px;"> + </button>
+                    <input type="text" id="counter" value="1">
+                    <button class="dec btn-danger btn-md" field="quantity" style="font-size:16px; margin-left:5px;">  - </button>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <label id="foodname"><strong>Tomato Soup (Veg)</strong></label>
+                  <label id="cost"> Rs.56</label> <br>
+                  <label>(ingredients)</label>
+                  <div class="counter">
+                    <button class="inc btn-danger btn-md" field="quantity" style="font-size:15px; margin-right:5px;"> + </button>
+                    <input type="text" id="counter" value="1">
+                    <button class="dec btn-danger btn-md" field="quantity" style="font-size:16px; margin-left:5px;">  - </button>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <label id="foodname"><strong>Tomato Soup (Veg)</strong></label>
+                  <label id="cost"> Rs.56</label> <br>
+                  <label>(ingredients)</label>
+                  <div class="counter">
+                    <button class="inc btn-danger btn-md" field="quantity" style="font-size:15px; margin-right:5px;"> + </button>
+                    <input type="text" id="counter" value="1">
+                    <button class="dec btn-danger btn-md" field="quantity" style="font-size:16px; margin-left:5px;">  - </button>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <label id="foodname"><strong>Tomato Soup (Veg)</strong></label>
+                  <label id="cost"> Rs.56</label><br>
+                  <label>(ingredients)</label>
+                  <div class="counter">
+                    <button class="inc btn-danger btn-md" field="quantity" style="font-size:15px; margin-right:5px;"> + </button>
+                    <input type="text" id="counter" value="1">
+                    <button class="dec btn-danger btn-md" field="quantity" style="font-size:16px; margin-left:5px;">  - </button>
+                  </div>
+                </div>
+              </div> <!-- end food-list-->
+              <div class="col-xs-4">
+                <div class="order-tab">
+                  <div class="header" style="padding-top:15px; text-align:center;font-size:15px;"> <label>Your Order!</label> </div>
+                  <div class="body">
+                    <table class="table table-striped " style="margin-bottom:0;"> 
+                      <tr class="danger" style="border:0;"> <th> Food Name</th> <th>Price</th></tr>
+                      <tr class="info"> <td> Food Name</td> <td>Price</td></tr>
+                      <tr class="info"> <td> Food Name</td> <td>Price</td></tr>
+                      <tr class="info"> <td> Food Name</td> <td>Price</td></tr>
+                      <tr class="info"> <td> Food Name</td> <td>Price</td></tr>
+                      <tr class="info"> <td> Food Name</td> <td>Price</td></tr>
+                      <tr class="success"> <th> Sub Total </th> <th> Rs. 65</th> </tr>
+                      <tr class="success"> <th>Service Tax </th> <th> Rs. 65</th> </tr>
+                      <tr class="success"> <th> Delivery Charge </th> <th> Rs. 65</th> </tr>
+                    </table>
+                  </div>
+                  <div class="footer" style="margin:10px;"> 
+                    <div id="total" style="font-size:17px;"> <label style="float:left; margin-bottom:10px;">Total</label> <label style="float:right; margin-bottom:10px;">Rs.1500</label></div> <br>
+                    <div id="delivery"> <label style="float:left; margin-bottom:10px;">Estimated Delivery Time:45mins</label></div> <br>
+                    <button style="border:0;"class="btn-lg btn-success btn-block" type="submit" > Proceed</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+          </div><!--end modal-body-->
+        </div>
+      </div>
+    </div><!--end modal-->
+	<!--navbar-->
+  <nav class="navbar navbar-custom" style="background-color: #4d1e00;margin-bottom:0px; ">
+  <div class="container-fluid">
+    <div class="navbar-header" style="margin-left:5%;">
+      <a class="navbar-brand" href="#"><img src="images\logo.png" class="img-responsive" height="25%" width="25%" style="margin-top: -5px; margin-left:-12%"></a>
+      <img class="ball img-responsive hidden-xs hidden-sm" src="images\font.png" style="position:absolute;top:30%;">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <i class=" glyphicon glyphicon-menu-hamburger" style="color:#8D4C14;">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </i></button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" ><button class="btn btn-custom btn-md order" style="background-color:#918677;margin-top: -5px;" id="orderbutton"><font color="white" size="3 px"><span class="glyphicon glyphicon-shopping-cart "></span>&nbsp<b>ORDER NOW!</font></b></button></a></li>
+        <!--login-->
+          <li class="login hidden-xs">  
+            <a id="login-trigger" href="#">
+              <span class="glyphicon glyphicon-log-in"></span> Login
+            </a>
+            <div id="login-content" style="opacity:0.9">
+              <form>
+                <fieldset id="inputs">
+                  <input id="username" type="email" name="Email" placeholder="Your email address" style="margin-top:15px" required>   
+                  <input id="password" type="password" name="Password" placeholder="Password" required>
+                </fieldset>
+                <fieldset id="labels" style="color:#444">
+                  <label id="remember"><input type="checkbox" checked="checked"> Remember me</label>
+                  <label id="forgot"> <a href="#"> Forgot Password? </a></label>
+                </fieldset>
+                  <fieldset id="actions">
+                  <input type="submit" id="submit" value="Login">
+                  <input type="button" id="signup" value="Signup" href="#signup-content">
+                </fieldset>
+              </form>
+
+              <div class="hr" style="margin-bottom:10px; ">
+                <span class="left" style="border-bottom:1px solid #444; float:left; width: 80px; margin-top:10px;margin-left:10px;"></span>
+                <span style="color:#444; padding-left:5px;">Or Login with</span>
+                <span class="right" style="border-bottom:1px solid #444; float:right; width: 80px; margin-top:10px; margin-right:10px;"></span>
+              </div>
+
+             <div class="loginpanel">
+              <div class="social">
+                <a href="http://www.facebook.com" class="facebook"></a>
+                <a href="http://www.twitter.com" class="twitter"></a>
+                <a href="www.g" class="googleplus"></a>
+              </div>
+            </div>
+            </div> <!--end login-content-->
+
+            <div id="signup-content" style="opacity:0.9">
+              <form>
+                <fieldset id="inputs">
+                  <input id="username" type="email" name="Email" placeholder="Your Name" style="margin-top:15px" required>
+                  <input id="username" type="email" name="Email" placeholder="Your email address" required>   
+                  <input id="password" type="password" name="Password" placeholder="Password" required>
+                </fieldset>
+                <fieldset id="labels" style="color:#444">
+                  <label id="remember"><input type="checkbox" checked="checked"> I agree to the Terms and conditions</label>
+                </fieldset>
+                  <fieldset id="actions">
+                  <input type="button" id="back" value="Back">
+                  <input type="button" id="signup" value="Signup">
+                </fieldset>
+              </form>
+
+              <div class="hr" style="margin-bottom:10px; ">
+                <span class="left" style="border-bottom:1px solid #444; float:left; width: 75px; margin-top:10px;margin-left:10px;"></span>
+                <span style="color:#444; padding-left:5px;">Or Signup with</span>
+                <span class="right" style="border-bottom:1px solid #444; float:right; width: 80px; margin-top:10px; margin-right:10px;"></span>
+              </div>
+
+             <div class="loginpanel">
+              <div class="social">
+                <a href="javascript:void(0)" class="facebook"></a>
+                <a href="javascript:void(0)" class="twitter"></a>
+                <a href="javascript:void(0)" class="googleplus"></a>
+              </div>
+            </div>
+            </div> <!--end signup-content-->  
+          </li><!--endlogin-->
+          <li class="login hidden-lg hidden-md hidden-sm">  
+            <a id="login-trigger" href="#" data-toggle="modal" data-target="#myLogin">
+              <span class="glyphicon glyphicon-log-in"></span> Login
+            </a>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--login modal-->
+  <div class="modal" id="myLogin" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3> Login </h3>
+        </div>
+        <div class="modal-body">
+            <div id="login-content">
+                <form>
+                  <fieldset id="inputs">
+                    <input class="form-control"id="username" type="email" name="Email" placeholder="Your email address" style="margin-top:10x" required>  <br> 
+                    <input class="form-control"id="password" type="password" name="Password" placeholder="Password" required> 
+                  </fieldset>
+                  <fieldset id="labels" style="color:#444;margin-top:10px;margin-bottom:10px; ">
+                    <label id="remember" style="float:left"><input type="checkbox" checked="checked"> Remember me</label>
+                    <label id="forgot" style="float:right"> <a href="#"> Forgot Password? </a></label>
+                  </fieldset>
+                    <fieldset id="actions" >
+                      <div class="row">
+                        <div class="col-xs-6"><input class="form-control" type="submit" id="submit" value="Login"> </div>
+                        <div class="col-xs-6"> <input class="form-control" type="button" id="signup" value="Signup"> </div> 
+                      </div>
+                  </fieldset>
+                </form>
+
+                <div class="hr" style="margin-bottom:10px; ">
+                  <div class="row">
+                    <div class="col-xs-5"><span class="left" style="border-bottom:1px solid #444; float:left; width:100% ;margin-top:10px;"></span></div>
+                    <div class="col-xs-2" style="text-align:center; margin:auto;"><span style="color:#444; width:100%; padding-left:5px;">Or</span></div>
+                    <div class="col-xs-5" ><span class="right" style="border-bottom:1px solid #444; float:right; width:100%; margin-top:10px; "></span></div>
+                  </div>
+                </div>
+
+                <div class="loginpanel">
+                  <div class="social">
+                    <a href="http://www.facebook.com" class="facebook"></a>
+                    <a href="javascript:void(0)" class="twitter"></a>
+                    <a href="javascript:void(0)" class="googleplus"></a>
+                  </div>
+                </div>
+              </div> <!--end login-content-->
+          </div><!--end modal body-->
+      </div>
+    </div>
+  </div><!--end modal-->
+
+  <div class="modal" id="mySignup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3> Signup </h3>
+        </div> 
+        <div class="modalbody" style="margin:15px;">
+                <form>
+                  <fieldset id="inputs">
+                    <input class="form-control"id="username" type="email" name="Email" placeholder="Your Name" style="margin-top:5px" required>  <br> 
+                    <input class="form-control"id="username" type="email" name="Email" placeholder="Your email address" required>  <br> 
+                    <input class="form-control"id="password" type="password" name="Password" placeholder="Password" required> 
+                  </fieldset>
+                  <fieldset id="labels" style="color:#444;margin-top:10px;margin-bottom:10px; ">
+                    <label id="remember" style="float:left"><input type="checkbox" checked="checked"> I agree to the Terms and Conditions</label>
+                  </fieldset>
+                    <fieldset id="actions" >
+                      <div class="row">
+                        <div class="col-xs-6"> <input class="form-control" type="submit" id="back" value="Back"> </div>
+                        <div class="col-xs-6"> <input class="form-control" type="button" id="signup" value="Signup"> </div> 
+                      </div>
+                  </fieldset>
+                </form>
+
+                <div class="hr" style="margin-bottom:10px; ">
+                  <div class="row">
+                    <div class="col-xs-5"><span class="left" style="border-bottom:1px solid #444; float:left; width:100% ;margin-top:10px;"></span></div>
+                    <div class="col-xs-2" style="text-align:center; margin:auto;"><span style="color:#444; width:100%; padding-left:5px;">Or</span></div>
+                    <div class="col-xs-5" ><span class="right" style="border-bottom:1px solid #444; float:right; width:100%; margin-top:10px; "></span></div>
+                  </div>
+                </div>
+
+                <div class="loginpanel">
+                  <div class="social">
+                    <a href="javascript:void(0)" class="facebook"></a>
+                    <a href="javascript:void(0)" class="twitter"></a>
+                    <a href="javascript:void(0)" class="googleplus"></a>
+                  </div>
+                </div>
+          </div>
+      </div>
+    </div>
+  </div><!--end modal-->
+
+<!--location and search box--> 
+  <div class="jumbotron" style="background-color:#cc2900;">
+    <div class="container">
+      <div class="row">
+          <div class="col-xs-5 text-center">
+            <div class="input-group location">
+              <div class="input-group-addon" style="background-color: #E5E5CF;opacity: 0.9;"> <img src="images/location-icon.png" height="35px" width="38px" style="background-color: #E5E5CF;opacity: 0.9;"> </div>
+              <input type="text" class="form-control" placeholder="Enter Location" id="location" >
+            </div>
+          </div>
+          <div class="col-xs-7 text-center">
+            <div class="input-group" style="border-radius:6px">
+               <input type="text" class="form-control" placeholder="Search" id="search">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+             </div>
+          </div>
+        </div>
+      </div> 
+  </div><!--end jumbotron-->
+    <div class="col-xs-2" id="Filter-Forms">
+        <h4>FILTERS</h4><hr style="height: 5px;border: 0;box-shadow: 0 10px 10px -10px #8c8b8b inset;">
+<div style="background-color:#e9e5e2;margin-bottom:5px;"><!--Form div-->
+<form>
+  <div><!--Price filter starts-->
+    <input type="checkbox" id="filters">Rs.100 & below<br>
+    <input type="checkbox" id="filters">Rs.100- Rs 200<br>
+    <input type="checkbox" id="filters">Rs.200- Rs 500<br>
+    <input type="checkbox" id="filters">Rs.500- Rs 1000<br>
+    <input type="checkbox" id="filters">Rs.1000 & above<br>
+</div><!--Price filter ends-->
+  <div style="background-color:#e9e5e2;margin-bottom:5px;"><!---->
+    <input type="checkbox" id="filters">Alcohol<br>
+    <input type="checkbox" id="filters">Veg<br>
+    <input type="checkbox" id="filters">Non-veg<br>
+    <input type="checkbox" id="filters">Jain<br>
+    <input type="checkbox" id="filters">Street Food<br>
+    <input type="checkbox" id="filters">North Indian<br>
+    <input type="checkbox" id="filters">Buffet<br>
+    <input type="checkbox" id="filters">Continental<br>
+    <input type="checkbox" id="filters">Family restraunt<br>
+  </div>
+
+</form>
+</div><!--Form div ends-->
+      </div><!--Container div ends-->
+
+ <div class="col-xs-8" id="Listing" style="background-color:#E2D0B9;padding:12px;"><!--Size div starts-->
+      <div class="row"><!--division row starts-->
+        <div class="col-xs-2"><!--Picture div starts-->
+          <a href="#"><img class="img-rounded img-responsive" src="images/PizzaExpress.jpeg" width="100 px" align="left" style="margin:10px;"></a>
+        </div><!--Picture div ends-->
+      <div class="col-xs-10"><!--Text div starts-->
+        <div style="border-radius:6px;background-color:#4d1e00;color:white;position:relative;float:right;padding:5px;"><!--Rating-->
+          <b style="margin:5px;"><font size="4">4.1</font></b>
+
+        </div>
+        <h3 style="font-weight:600" id="MainHeading"><a href="#">Pizza Express<a></h3>
+         <div class="rating" style="position:absolute;">
+          <input type="radio" name="rating" class="rating-input" value="1" id="one"> <label  for="one" class="rating-star"> <img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="2" id="two"> <label  for="two"  class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="3" id="three"> <label  for="three" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="4" id="four"> <label  for="four" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="5" id="five"> <label for="five" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+        </div>
+        <p id="AreaLink" style="color:#9a9a9a;"><a href="#"><img src="images/map symbol.png" width="2.5%">Marol</a>
+          <a href="#" id="Offers" style="text-decoration:none;">
+           <div id="d_offers"><!--Rating-->
+           <b>
+           <i class="fa fa-tags"></i> Offers</b>
+          </a>
+        </div>
+        </p>
+        <p style="font-weight:400;color:#595959;" id="Cost"><font color="#00802b">Rs.2000</font> for 2</p>
+       <a href="#" id="Cuisine_tabs" class="button">Italian</a><a href="#" id="Cuisine_tabs" class="button">Continental</a><br>
+        <button type="button" id="Menu" href="#" data-toggle="modal" data-target="#slide"><span class="glyphicon glyphicon-list-alt" ></span><b> Menu</b></button>&nbsp
+
+        
+        <button type="button" id="orderonline" ><span class="fa fa-home"></span><b> Home delivery </b></button><!--This should be disabled if it is unavailable in that area-->
+       
+  </div>
+     </div><!--Text div ends-->
+    </div><!--Row ends-->
+  </div><!--Final Row ends-->
+        <div style="margin-left:-2px;float:right;" >
+      <img src="images/Ads.png" class="img-responsive">
+    </div>
+    <div class="col-xs-8" id="Listing" style="background-color:#E2D0B9;padding:12px;"><!--Size div starts-->
+      <div class="row"><!--division row starts-->
+        <div class="col-xs-2"><!--Picture div starts-->
+          <a href="#"><img class="img-rounded img-responsive" src="images/PizzaExpress.jpeg" width="100 px" align="left" style="margin:10px;"></a>
+        </div><!--Picture div ends-->
+      <div class="col-xs-10"><!--Text div starts-->
+        <div style="border-radius:6px;background-color:#4d1e00;color:white;position:relative;float:right;padding:5px;"><!--Rating-->
+          <b style="margin:5px;"><font size="4">4.1</font></b>
+
+        </div>
+        <h3 style="font-weight:600" id="MainHeading"><a href="#">Pizza Express<a></h3>
+         <div class="rating" style="position:absolute;">
+          <input type="radio" name="rating" class="rating-input" value="1" id="one"> <label  for="one" class="rating-star"> <img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="2" id="two"> <label  for="two"  class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="3" id="three"> <label  for="three" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="4" id="four"> <label  for="four" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="5" id="five"> <label for="five" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+        </div>
+        <p id="AreaLink" style="color:#9a9a9a;"><a href="#"><img src="images/map symbol.png" width="2.5%">Marol</a>
+          <a href="#" id="Offers" style="text-decoration:none;">
+           <div id="d_offers"><!--Rating-->
+           <b>
+           <i class="fa fa-tags"></i> Offers
+          </a>
+        </div>
+        </p>
+        <p style="font-weight:400;color:#595959;" id="Cost"><font color="#00802b">Rs.2000</font> for 2</p>
+       <a href="#" id="Cuisine_tabs" class="button">Italian</a><a href="#" id="Cuisine_tabs" class="button">Continental</a><br>
+        <button type="button" id="Menu" href="#" data-toggle="modal" data-target="#slide"><span class="glyphicon glyphicon-list-alt" ></span><b> Menu</b></button>&nbsp
+        
+        <button type="button" id="orderonline" ><span class="fa fa-home"></span><b> Home delivery </b></button><!--This should be disabled if it is unavailable in that area-->
+        
+        <a href="#"><p style="float:right;bottom:0;">
+        </p></a>
+     </div><!--Text div ends-->
+    </div><!--Row ends-->
+  </div><!--Final Row ends-->
+        <div style="margin-left:-2px;float:right;" >
+      <img src="images/Ads.png" class="img-responsive">
+    </div>
+    <div class="col-xs-8" id="Listing" style="background-color:#E2D0B9;padding:12px;margin-left:17.65%;"><!--Size div starts-->
+      <div class="row"><!--division row starts-->
+        <div class="col-xs-2"><!--Picture div starts-->
+          <a href="#"><img class="img-rounded img-responsive" src="images/PizzaExpress.jpeg" width="100 px" align="left" style="margin:10px;"></a>
+        </div><!--Picture div ends-->
+      <div class="col-xs-10"><!--Text div starts-->
+        <div style="border-radius:6px;background-color:#4d1e00;color:white;position:relative;float:right;padding:5px;"><!--Rating-->
+          <b style="margin:5px;"><font size="4">4.1</font></b>
+
+        </div>
+        <h3 style="font-weight:600" id="MainHeading"><a href="#">Pizza Express<a></h3>
+         <div class="rating" style="position:absolute;">
+          <input type="radio" name="rating" class="rating-input" value="1" id="one"> <label  for="one" class="rating-star"> <img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="2" id="two"> <label  for="two"  class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="3" id="three"> <label  for="three" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="4" id="four"> <label  for="four" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="5" id="five"> <label for="five" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+        </div>
+        <p id="AreaLink" style="color:#9a9a9a;"><a href="#"><img src="images/map symbol.png" width="2.5%">Marol</a>
+          <a href="#" id="Offers" style="text-decoration:none;">
+           <div id="d_offers"><!--Rating-->
+           <b>
+           <i class="fa fa-tags"></i> Offers
+          </a>
+        </div>
+        </p>
+        <p style="font-weight:400;color:#595959;" id="Cost"><font color="#00802b">Rs.2000</font> for 2</p>
+       <a href="#" id="Cuisine_tabs" class="button">Italian</a><a href="#" id="Cuisine_tabs" class="button">Continental</a><br>
+        <button type="button" id="Menu" href="#" data-toggle="modal" data-target="#slide"><span class="glyphicon glyphicon-list-alt" ></span><b> Menu</b></button>&nbsp
+        
+        <button type="button" id="orderonline" ><span class="fa fa-home"></span><b> Home delivery </b></button><!--This should be disabled if it is unavailable in that area-->
+        
+        <a href="#"><p style="float:right;bottom:0;">
+        </p></a>
+     </div><!--Text div ends-->
+    </div><!--Row ends-->
+  </div><!--Final Row ends-->
+        <div style="margin-left:-2px;float:right;" >
+      <img src="images/Ads.png" class="img-responsive">
+    </div>
+    <div class="col-xs-8" id="Listing" style="background-color:#E2D0B9;padding:12px;margin-left:17.65%;"><!--Size div starts-->
+      <div class="row"><!--division row starts-->
+        <div class="col-xs-2"><!--Picture div starts-->
+          <a href="#"><img class="img-rounded img-responsive" src="images/PizzaExpress.jpeg" width="100 px" align="left" style="margin:10px;"></a>
+        </div><!--Picture div ends-->
+      <div class="col-xs-10"><!--Text div starts-->
+        <div style="border-radius:6px;background-color:#4d1e00;color:white;position:relative;float:right;padding:5px;"><!--Rating-->
+          <b style="margin:5px;"><font size="4">4.1</font></b>
+
+        </div>
+        <h3 style="font-weight:600" id="MainHeading"><a href="#">Pizza Express<a></h3>
+         <div class="rating" style="position:absolute;">
+          <input type="radio" name="rating" class="rating-input" value="1" id="one"> <label  for="one" class="rating-star"> <img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="2" id="two"> <label  for="two"  class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="3" id="three"> <label  for="three" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="4" id="four"> <label  for="four" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="5" id="five"> <label for="five" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+        </div>
+        <p id="AreaLink" style="color:#9a9a9a;"><a href="#"><img src="images/map symbol.png" width="2.5%">Marol</a>
+          <a href="#" id="Offers" style="text-decoration:none;">
+           <div id="d_offers"><!--Rating-->
+           <b>
+           <i class="fa fa-tags"></i> Offers
+          </a>
+        </div>
+        </p>
+        <p style="font-weight:400;color:#595959;" id="Cost"><font color="#00802b">Rs.2000</font> for 2</p>
+       <a href="#" id="Cuisine_tabs" class="button">Italian</a><a href="#" id="Cuisine_tabs" class="button">Continental</a><br>
+        <button type="button" id="Menu" href="#" data-toggle="modal" data-target="#slide"><span class="glyphicon glyphicon-list-alt" ></span><b> Menu</b></button>&nbsp
+        
+        <button type="button" id="orderonline" ><span class="fa fa-home"></span><b> Home delivery </b></button><!--This should be disabled if it is unavailable in that area-->
+        
+        <a href="#"><p style="float:right;bottom:0;">
+        </p></a>
+     </div><!--Text div ends-->
+    </div><!--Row ends-->
+  </div><!--Final Row ends-->
+        <div style="margin-left:-2px;float:right;" >
+      <img src="images/Ads.png" class="img-responsive">
+    </div>
+    <div class="col-xs-8" id="Listing" style="background-color:#E2D0B9;padding:12px;margin-left:17.65%;"><!--Size div starts-->
+      <div class="row"><!--division row starts-->
+        <div class="col-xs-2"><!--Picture div starts-->
+          <a href="#"><img class="img-rounded img-responsive" src="images/PizzaExpress.jpeg" width="100 px" align="left" style="margin:10px;"></a>
+        </div><!--Picture div ends-->
+      <div class="col-xs-10"><!--Text div starts-->
+        <div style="border-radius:6px;background-color:#4d1e00;color:white;position:relative;float:right;padding:5px;"><!--Rating-->
+          <b style="margin:5px;"><font size="4">4.1</font></b>
+
+        </div>
+        <h3 style="font-weight:600" id="MainHeading"><a href="#">Pizza Express<a></h3>
+         <div class="rating" style="position:absolute;">
+          <input type="radio" name="rating" class="rating-input" value="1" id="one"> <label  for="one" class="rating-star"> <img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="2" id="two"> <label  for="two"  class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="3" id="three"> <label  for="three" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="4" id="four"> <label  for="four" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="5" id="five"> <label for="five" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+        </div>
+        <p id="AreaLink" style="color:#9a9a9a;"><a href="#"><img src="images/map symbol.png" width="2.5%">Marol</a>
+          <a href="#" id="Offers" style="text-decoration:none;">
+           <div id="d_offers"><!--Rating-->
+           <b>
+           <i class="fa fa-tags"></i> Offers
+          </a>
+        </div>
+        </p>
+        <p style="font-weight:400;color:#595959;" id="Cost"><font color="#00802b">Rs.2000</font> for 2</p>
+       <a href="#" id="Cuisine_tabs" class="button">Italian</a><a href="#" id="Cuisine_tabs" class="button">Continental</a><br>
+        <button type="button" id="Menu" href="#" data-toggle="modal" data-target="#slide"><span class="glyphicon glyphicon-list-alt" ></span><b> Menu</b></button>&nbsp
+        
+        <button type="button" id="orderonline" ><span class="fa fa-home"></span><b> Home delivery </b></button><!--This should be disabled if it is unavailable in that area-->
+        
+        <a href="#"><p style="float:right;bottom:0;">
+        </p></a>
+     </div><!--Text div ends-->
+    </div><!--Row ends-->
+  </div><!--Final Row ends-->
+        <div style="margin-left:-2px;float:right;" >
+      <img src="images/Ads.png" class="img-responsive">
+    </div>
+    <div class="col-xs-8" id="Listing" style="background-color:#E2D0B9;padding:12px;margin-left:17.65%;"><!--Size div starts-->
+      <div class="row"><!--division row starts-->
+        <div class="col-xs-2"><!--Picture div starts-->
+          <a href="#"><img class="img-rounded img-responsive" src="images/PizzaExpress.jpeg" width="100 px" align="left" style="margin:10px;"></a>
+        </div><!--Picture div ends-->
+      <div class="col-xs-10"><!--Text div starts-->
+        <div style="border-radius:6px;background-color:#4d1e00;color:white;position:relative;float:right;padding:5px;"><!--Rating-->
+          <b style="margin:5px;"><font size="4">4.1</font></b>
+
+        </div>
+        <h3 style="font-weight:600" id="MainHeading"><a href="#">Pizza Express<a></h3>
+         <div class="rating" style="position:absolute;">
+          <input type="radio" name="rating" class="rating-input" value="1" id="one"> <label  for="one" class="rating-star"> <img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="2" id="two"> <label  for="two"  class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="3" id="three"> <label  for="three" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="4" id="four"> <label  for="four" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="5" id="five"> <label for="five" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+        </div>
+        <p id="AreaLink" style="color:#9a9a9a;"><a href="#"><img src="images/map symbol.png" width="2.5%">Marol</a>
+          <a href="#" id="Offers" style="text-decoration:none;">
+           <div id="d_offers"><!--Rating-->
+           <b>
+           <i class="fa fa-tags"></i> Offers
+          </a>
+        </div>
+        </p>
+        <p style="font-weight:400;color:#595959;" id="Cost"><font color="#00802b">Rs.2000</font> for 2</p>
+       <a href="#" id="Cuisine_tabs" class="button">Italian</a><a href="#" id="Cuisine_tabs" class="button">Continental</a><br>
+        <button type="button" id="Menu" href="#" data-toggle="modal" data-target="#slide"><span class="glyphicon glyphicon-list-alt" ></span><b> Menu</b></button>&nbsp
+        
+        <button type="button" id="orderonline" ><span class="fa fa-home"></span><b> Home delivery </b></button><!--This should be disabled if it is unavailable in that area-->
+        
+        <a href="#"><p style="float:right;bottom:0;">
+        </p></a>
+     </div><!--Text div ends-->
+    </div><!--Row ends-->
+  </div><!--Final Row ends-->
+        <div style="margin-left:-2px;float:right;" >
+      <img src="images/Ads.png" class="img-responsive">
+    </div>
+    <div class="col-xs-8" id="Listing" style="background-color:#E2D0B9;padding:12px;margin-left:17.65%;margin-bottom:5px;"><!--Size div starts-->
+      <div class="row"><!--division row starts-->
+        <div class="col-xs-2"><!--Picture div starts-->
+          <a href="#"><img class="img-rounded img-responsive" src="images/PizzaExpress.jpeg" width="100 px" align="left" style="margin:10px;"></a>
+        </div><!--Picture div ends-->
+      <div class="col-xs-10"><!--Text div starts-->
+        <div style="border-radius:6px;background-color:#4d1e00;color:white;position:relative;float:right;padding:5px;"><!--Rating-->
+          <b style="margin:5px;"><font size="4">4.1</font></b>
+
+        </div>
+        <h3 style="font-weight:600" id="MainHeading"><a href="#">Pizza Express<a></h3>
+         <div class="rating" style="position:absolute;">
+          <input type="radio" name="rating" class="rating-input" value="1" id="one"> <label  for="one" class="rating-star"> <img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="2" id="two"> <label  for="two"  class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="3" id="three"> <label  for="three" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="4" id="four"> <label  for="four" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+
+          <input type="radio" name="rating" class="rating-input" value="5" id="five"> <label for="five" class="rating-star"><img class="img1"src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-natural-wonders/049075-3d-transparent-glass-icon-natural-wonders-star16-solid.png" width="20px"></label>
+        </div>
+        <p id="AreaLink" style="color:#9a9a9a;"><a href="#"><img src="images/map symbol.png" width="2.5%">Marol</a>
+          <a href="#" id="Offers" style="text-decoration:none;">
+           <div id="d_offers"><!--Rating-->
+           <b>
+           <i class="fa fa-tags"></i> Offers
+          </a>
+        </div>
+        </p>
+        <p style="font-weight:400;color:#595959;" id="Cost"><font color="#00802b">Rs.2000</font> for 2</p>
+       <a href="#" id="Cuisine_tabs" class="button">Italian</a><a href="#" id="Cuisine_tabs" class="button">Continental</a><br>
+        <button type="button" id="Menu" href="#" data-toggle="modal" data-target="#slide"><span class="glyphicon glyphicon-list-alt" ></span><b> Menu</b></button>&nbsp
+        
+        <button type="button" id="orderonline" ><span class="fa fa-home"></span><b> Home delivery </b></button><!--This should be disabled if it is unavailable in that area-->
+        
+        <a href="#"><p style="float:right;bottom:0;">
+        </p></a>
+     </div><!--Text div ends-->
+    </div><!--Row ends-->
+  </div><!--Final Row ends-->
+        <div style="margin-left:-2px;float:right;" >
+      <img src="images/Ads.png" class="img-responsive">
+    </div>
+      <!--well-->
+
+  <div class="bottom-well">
+    <div class="well col-xs-12 hidden-xs" style="background:#beb1a7;opacity:0.75;position:relative;border:0;">
+        <div class="row">
+          <div class="col-xs-3"><strong>FoodSpy</strong><br>
+            <a href="#">About us</a><br>
+            <a href="#">Careers</a><br>
+            <a href="#">Developers</a><br>
+            <a href="#">Contact</a><br>
+          </div>
+          <div class="col-xs-3"><strong>Collaborate </strong><br><a href="#">Become a lister</a>
+            <br><a href="#">Advertise</a><br><a href="#">Blogs</a>
+          </div>
+          <div class="col-xs-3"><strong>Policy</strong><br><a href="#" style="alink:black;">Privacy</a><br><a href="#">Terms and conditions</a></div>
+          <div class="col-xs-3 "><strong>Other</strong><br><a href="#">Feedback</a><br><a href="#">Contact</a></div>
+        </div>
+      </div>
+          
+    <!--end well-->
+      <div class="well col-xs-12 visible-xs hidden-sm hidden-md hidden-lg" style="background:#beb1a7;opacity:0.75;position:relative;border:0; overflow:hidden;">
+        <div class="row">
+          <div class="col-xs-2" style="font-size:85%;"><a href="#">Careers</a></div>
+          <div class="col-xs-2" style="font-size:85%;"><a href="#">Blogs</a></div>
+          <div class="col-xs-2" style="font-size:85%;"><a href="#">Contact</a></div>
+          <div class="col-xs-2" style="font-size:85%;"><a href="#">listings</a></div>
+          <div class="col-xs-2" style="font-size:85%;"><a href="#">Ads</a></div>
+          <div class="col-xs-2" style="font-size:85%;"><a href="#">Policy</a></div>
+        </div>
+      </div><!--end well-->
+  </div>  <!--end bottom well-->  
+</div>
+</html>
+

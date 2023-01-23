@@ -1,0 +1,574 @@
+<html lang="en">
+
+<head>
+  <title>FoodSpy</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <!-- jQuery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+  <link rel="icon" type="image/png" href="favicon.ico">
+
+  <link rel="stylesheet" href = "css/foodspy.css" />
+
+  <script type="text/javascript" src="js/foodspy.js"> </script>
+
+
+  <!--google maps-->
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+  <script>
+    function init() {
+      var input = document.getElementById('location');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+    }
+
+    google.maps.event.addDomListener(window, 'load', init);
+  </script>
+</head>
+
+<body>
+
+  <!--navbar-->
+  <nav class="navbar navbar-custom" style="background-color: #4d1e00;margin-bottom:0px; ">
+    <div class="container-fluid">
+      <div class="navbar-header" style="margin-left:5%;">
+        <a class="navbar-brand" href="#"><img src="images\logo.png" class="img-responsive" height="25%" width="25%" style="margin-top: -5px; margin-left:-12%"></a>
+        <img class="ball img-responsive hidden-xs hidden-sm" src="images\font.png" style="position:absolute;top:30%;">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <i class=" glyphicon glyphicon-menu-hamburger" style="color:#8D4C14;">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </i></button>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="test.html"><button class="btn btn-custom btn-md order" style="background-color:#918677;margin-top: -5px;" id="orderbutton">
+                <font color="white" size="3 px"><span class="glyphicon glyphicon-shopping-cart "></span>&nbsp<b>ORDER NOW!</font></b>
+              </button></a></li>
+          <!--login-->
+          <li class="login hidden-xs">
+            <a id="login-trigger" href="#">
+              <span class="glyphicon glyphicon-log-in"></span> Login
+            </a>
+            <div id="login-content" style="opacity:0.9">
+              <form>
+                <fieldset id="inputs">
+                  <input id="username" type="email" name="Email" placeholder="Your email address" style="margin-top:15px" required>
+                  <input id="password" type="password" name="Password" placeholder="Password" required>
+                </fieldset>
+                <fieldset id="labels" style="color:#444">
+                  <label id="remember"><input type="checkbox" checked="checked"> Remember me</label>
+                  <label id="forgot"> <a href="#"> Forgot Password? </a></label>
+                </fieldset>
+                <fieldset id="actions">
+                  <input type="submit" id="submit" value="Login">
+                  <input type="button" id="signup" value="Signup">
+                </fieldset>
+              </form>
+
+              <div class="hr" style="margin-bottom:10px; ">
+                <span class="left" style="border-bottom:1px solid #444; float:left; width: 80px; margin-top:10px;margin-left:10px;"></span>
+                <span style="color:#444; padding-left:5px;">Or Login with</span>
+                <span class="right" style="border-bottom:1px solid #444; float:right; width: 80px; margin-top:10px; margin-right:10px;"></span>
+              </div>
+
+              <div class="loginpanel">
+                <div class="social">
+                  <a href="http://www.facebook.com" class="facebook"></a>
+                  <a href="javascript:void(0)" class="twitter"></a>
+                  <a href="javascript:void(0)" class="googleplus"></a>
+                </div>
+              </div>
+            </div>
+            <!--end login-content-->
+            <div id="signup-content" style="opacity:0.9">
+              <form>
+                <fieldset id="inputs">
+                  <input id="username" type="email" name="Email" placeholder="Your Name" style="margin-top:15px" required>
+                  <input id="username" type="email" name="Email" placeholder="Your email address" required>
+                  <input id="password" type="password" name="Password" placeholder="Password" required>
+                </fieldset>
+                <fieldset id="labels" style="color:#444">
+                  <label id="remember"><input type="checkbox" checked="checked"> I agree to the Terms and conditions</label>
+                </fieldset>
+                <fieldset id="actions">
+                  <input type="button" id="back" value="Back">
+                  <input type="button" id="signup" value="Signup">
+                </fieldset>
+              </form>
+
+              <div class="hr" style="margin-bottom:10px; ">
+                <span class="left" style="border-bottom:1px solid #444; float:left; width: 75px; margin-top:10px;margin-left:10px;"></span>
+                <span style="color:#444; padding-left:5px;">Or Signup with</span>
+                <span class="right" style="border-bottom:1px solid #444; float:right; width: 80px; margin-top:10px; margin-right:10px;"></span>
+              </div>
+
+              <div class="loginpanel">
+                <div class="social">
+                  <a href="javascript:void(0)" class="facebook"></a>
+                  <a href="javascript:void(0)" class="twitter"></a>
+                  <a href="javascript:void(0)" class="googleplus"></a>
+                </div>
+              </div>
+            </div>
+            <!--end signup-content-->
+          </li>
+          <!--endlogin-->
+          <li class="login hidden-lg hidden-md hidden-sm">
+            <a id="login-trigger" href="#" data-toggle="modal" data-target="#myLogin">
+              <span class="glyphicon glyphicon-log-in"></span> Login
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--login modal-->
+  <div class="modal fade" id="myLogin" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3> Login </h3>
+        </div>
+        <div class="modal-body">
+          <div id="login-content">
+            <form>
+              <fieldset id="inputs">
+                <input class="form-control" id="username" type="email" name="Email" placeholder="Your email address" style="margin-top:10x" required> <br>
+                <input class="form-control" id="password" type="password" name="Password" placeholder="Password" required>
+              </fieldset>
+              <fieldset id="labels" style="color:#444;margin-top:10px;margin-bottom:10px; ">
+                <label id="remember" style="float:left"><input type="checkbox" checked="checked"> Remember me</label>
+                <label id="forgot" style="float:right"> <a href="#"> Forgot Password? </a></label>
+              </fieldset>
+              <fieldset id="actions">
+                <div class="row">
+                  <div class="col-xs-6"><input class="form-control" type="submit" id="submit" value="Login"> </div>
+                  <div class="col-xs-6"> <input class="form-control" type="button" id="signup" value="Signup"> </div>
+                </div>
+              </fieldset>
+            </form>
+
+            <div class="hr" style="margin-bottom:10px; ">
+              <div class="row">
+                <div class="col-xs-5"><span class="left" style="border-bottom:1px solid #444; float:left; width:100% ;margin-top:10px;"></span></div>
+                <div class="col-xs-2" style="text-align:center; margin:auto;"><span style="color:#444; width:100%; padding-left:5px;">Or</span></div>
+                <div class="col-xs-5"><span class="right" style="border-bottom:1px solid #444; float:right; width:100%; margin-top:10px; "></span></div>
+              </div>
+            </div>
+
+            <div class="loginpanel">
+              <div class="social">
+                <a href="http://www.facebook.com" class="facebook"></a>
+                <a href="javascript:void(0)" class="twitter"></a>
+                <a href="javascript:void(0)" class="googleplus"></a>
+              </div>
+            </div>
+          </div>
+          <!--end login-content-->
+        </div>
+        <!--end modal body-->
+      </div>
+    </div>
+  </div>
+  <!--end modal-->
+
+  <div class="modal" id="mySignup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3> Signup </h3>
+        </div>
+        <div id="modalbody" style="margin:15px;">
+          <form>
+            <fieldset id="inputs">
+              <input class="form-control" id="username" type="email" name="Email" placeholder="Your Name" style="margin-top:5px" required> <br>
+              <input class="form-control" id="username" type="email" name="Email" placeholder="Your email address" required> <br>
+              <input class="form-control" id="password" type="password" name="Password" placeholder="Password" required>
+            </fieldset>
+            <fieldset id="labels" style="color:#444;margin-top:10px;margin-bottom:10px; ">
+              <label id="remember" style="float:left"><input type="checkbox" checked="checked"> I agree to the Terms and Conditions</label>
+            </fieldset>
+            <fieldset id="actions">
+              <div class="row">
+                <div class="col-xs-6"><input class="form-control" type="submit" id="back" value="Back"> </div>
+                <div class="col-xs-6"> <input class="form-control" type="button" id="signup" value="Signup"> </div>
+              </div>
+            </fieldset>
+          </form>
+
+          <div class="hr" style="margin-bottom:10px; ">
+            <div class="row">
+              <div class="col-xs-5"><span class="left" style="border-bottom:1px solid #444; float:left; width:100% ;margin-top:10px;"></span></div>
+              <div class="col-xs-2" style="text-align:center; margin:auto;"><span style="color:#444; width:100%; padding-left:5px;">Or</span></div>
+              <div class="col-xs-5"><span class="right" style="border-bottom:1px solid #444; float:right; width:100%; margin-top:10px; "></span></div>
+            </div>
+          </div>
+
+          <div class="loginpanel">
+            <div class="social">
+              <a href="javascript:void(0)" class="facebook"></a>
+              <a href="javascript:void(0)" class="twitter"></a>
+              <a href="javascript:void(0)" class="googleplus"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end modal-->
+
+  <!--location and search box-->
+  <div class="jumbotron" style="background-color:#cc2900;">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-5 text-center">
+          <div class="input-group">
+            <div class="input-group-addon" style="background-color: #E5E5CF;opacity: 0.9;"> <img src="images/location-icon.png" height="35px" width="38px" style="background-color: #E5E5CF;opacity: 0.9;"> </div>
+            <input type="text" class="form-control" placeholder="Enter your Location" id="location">
+          </div>
+        </div>
+        <div class="col-xs-7 text-center">
+          <div class="input-group" style="border-radius:6px">
+            <input type="text" class="form-control" placeholder="Search" id="search">
+            <div class="input-group-btn">
+              <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end jumbotron-->
+
+  <div id="mainCarousel" class="carousel slide">
+    <div class="carousel-inner">
+      <!--CAROUSEL ACTIVE ITEM-->
+      <div class="item active">
+        <img src="images/candle-light-dinner.jpg" class="img-responsive" style="padding-top:0 px;">
+      </div>
+
+      <!--Blog posts-->
+      <div class="container-fluid">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col col-xs-3 hidden-xs hidden-sm hidden-md btn1" style="background-color:#e9e5e2;position:absolute; top:10%;opacity:0.7;">
+              <a href="#"><img class="img-circle img-responsive" src="images/ian.jpg" width="80 px" align="left"></a>
+              <h4 style="font-weight:500">IN-HOUSE BLOG</h4>
+              <p style="font-weight:500">If you could choose between one giant pizza with your favorite topping or many, many (16, exactly) little pizzas with lots of different combinations of toppings, what would you choose? Hands down, I'd chose
+                the mini pizzas, for two reasons.Another week just flew by and I cannot believe we're almost into September...</p>
+              <a href="#">
+                <p align="right">Read More</p>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col col-xs-3 hidden-xs hidden-sm hidden-md btn1" style="background-color:#e9e5e2;position:absolute; top:40%;opacity:0.7;">
+              <a href="#"><img class="img-circle img-responsive" src="images/ian.jpg" width="80 px" align="left"></a>
+              <h4 style="font-weight:500">IN-HOUSE BLOG</h4>
+              <p style="font-weight:500">If you could choose between one giant pizza with your favorite topping or many, many (16, exactly) little pizzas with lots of different combinations of toppings, what would you choose? Hands down, I'd chose
+                the mini pizzas, for two reasons.Another week just flew by and I cannot believe we're almost into September...</p>
+              <a href="#">
+                <p align="right">Read More</p>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+          <div class="row btn1">
+            <div class="col col-sm-4 hidden-xs VISIBLE-sm visible-md hidden-lg " style="background-color:#e9e5e2;position:absolute; top:10%;opacity:0.7;">
+              <a href="#"><img class="img-circle img-responsive" src="images/ian.jpg" width="80 px" align="left"></a>
+              <h4 style="font-weight:500">IAN SOMHERHALDER</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+          <div class="row btn1">
+            <div class="col col-sm-4 hidden-xs visible-sm visible-md hidden-lg " style="background-color:#e9e5e2;position:absolute; top:35%;opacity:0.7;">
+              <a href="#"><img class="img-circle img-responsive" src="images/ian.jpg" width="80 px" align="left"></a>
+              <h4 style="font-weight:500">IAN SOMHERHALDER</h4>
+            </div>
+          </div>
+        </div>
+        <!--End of Blog Psts-->
+      </div>
+
+      <!--categories-->
+
+      <div class="container-fluid hidden-xs visible-sm visible-md visible-lg">
+        <div class="categories">
+          <!--continental italian-->
+          <div class="flip-container italian" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\Pizza.png"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\Pizzaflip.png"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container chinese" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\noodle.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\noodleflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container desserts" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\desserts.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\dessertsflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container assalk" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\assal k.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\chilli.png"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container nightlife" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\nightlife.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\nightlifeflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container south" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\south.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\southflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container cafe" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\cafe.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\cafeflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container fish" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\fish.png"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\fishflip.png"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container romance" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\romance.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\romanceflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container burger" ontouchstart="this.classList.toggle('hover');">
+            <div class="flipper">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\burger.png"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\burgerflip.png"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end categories-->
+      </div>
+
+      <div class="categories hidden-sm hidden-md hidden-lg visible-xs">
+        <div class="categories">
+
+          <div class="flip-container1 italian1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\Pizza.png"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\Pizzaflip.png"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container1 chinese1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\noodle.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\noodleflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container1 desserts1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\desserts.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\dessertsflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container1 assalk1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\assal k.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\chilli.png"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container1 south1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\south.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\southflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container1 nightlife1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\nightlife.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\nightlifeflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container1 cafe1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\cafe.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\cafeflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container1 fish1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\fish.png"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\fishflip.png"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container1 romance1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\romance.jpg"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\romanceflip.jpg"></a>
+              </div>
+            </div>
+          </div>
+          <div class="flip-container1 burger1">
+            <div class="flipper" onclick="this.classList.toggle('flipped');">
+              <div class="front">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\burger.png"></a>
+              </div>
+              <div class="back">
+                <a href="#"><img class="img-thumbnail img-responsive" src="images\burgerflip.png"></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!--end categories-->
+      </div>
+
+      <!--well-->
+      <div class="bottom-well">
+        <div class="well col-xs-12 hidden-xs" style="background:#beb1a7;opacity:0.75;top:80%;position:absolute;border:0;">
+          <div class="row">
+            <div class="col-xs-3"><strong>FoodSpy</strong><br>
+              <a href="#">About us</a><br>
+              <a href="#">Careers</a><br>
+              <a href="#">Developers</a><br>
+              <a href="#">Contact</a><br>
+            </div>
+            <div class="col-xs-3"><strong>Collaborate </strong><br><a href="#">Become a lister</a>
+              <br><a href="#">Advertise</a><br><a href="#">Blogs</a>
+            </div>
+            <div class="col-xs-3"><strong>Policy</strong><br><a href="#" style="alink:black;">Privacy</a><br><a href="#">Terms and conditions</a></div>
+            <div class="col-xs-3 "><strong>Other</strong><br><a href="#">Feedback</a><br><a href="#">Contact</a></div>
+          </div>
+        </div>
+
+        <!--end well-->
+        <div class="well col-xs-12 visible-xs hidden-sm hidden-md hidden-lg" style="background:#beb1a7;opacity:0.75;top:60%;position:absolute;border:0; overflow:hidden;">
+          <div class="row">
+            <div class="col-xs-2"><a href="#">Careers&nbsp&nbsp&nbsp</a></div>
+            <div class="col-xs-2"><a href="#">Blogs</a></div>
+            <div class="col-xs-2"><a href="#">Contact&nbsp&nbsp&nbsp</a></div>
+            <div class="col-xs-2"><a href="#">listings</a></div>
+            <div class="col-xs-2"><a href="#">Ads&nbsp&nbsp</a></div>
+            <div class="col-xs-2"><a href="#">Policy</a></div>
+          </div>
+        </div>
+        <!--end well-->
+      </div>
+      <!--end bottom well-->
+
+    </div>
+    <!--CLOSE INNER CAROUSEL-->
+  </div>
+  <!--CLOSE MAIN CAROUSEL-->
+
+  <div class="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+</body>
+
+</html>
